@@ -3,53 +3,51 @@ import java.util.Scanner;
 public class App {
 
     public void Calculate() {
-
-        double num1, num2;
-        char op;
+        Scanner sc = new Scanner(System.in);
+        Calculator<Number> cal = new Calculator<>();
+        Parse s2n = new Parse();
         String re = "";
 
-        Scanner sc = new Scanner(System.in);
-        Calculator calculator = new Calculator();
-
-
         while (!re.equalsIgnoreCase("exit")) {
-            sout("Input first number: ");
-            num1 = sc.nextDouble();
-            sout("Input operator (+, -, *, /): ");
-            op = sc.next().charAt(0);
-            sout("Input second number: ");
-            num2 = sc.nextDouble();
+            System.out.print("Input first number: ");
+            Number num1 =s2n.parse(sc.next());
+
+            System.out.print("Input operator (+, -, *, /): ");
+            Operation<Number> op = cal.getOperation(OperatorType.getSymbol(sc.next().charAt(0)));
+
+            System.out.print("Input second number: ");
+            Number num2 =s2n.parse(sc.next());
 
             try {
-                double result = calculator.calculate(num1, op, num2);
-                sout("Result: " + result);
+                Number result = op.operate(num1, num2);
+                result = (double)result%1 ==0?(int)result:result;
             } catch (ArithmeticException e) {
-                sout("Error: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
 
-            sout("Wanna see all results? (yes/no)");
+            System.out.print("Wanna see all results? (yes/no): ");
             if (sc.next().equalsIgnoreCase("yes")) {
-                sout("History: " + calculator.getResults());
+                System.out.println("History: " + cal.getResults());
             }
 
-            sout("Wanna kill the oldest result? (yes/no)");
+            System.out.print("Wanna kill the oldest result? (yes/no): ");
             if (sc.next().equalsIgnoreCase("yes")) {
-                calculator.deleteOldestResult();
-                sout("You killed oldest result.");
+                cal.deleteOldestResult();
+                System.out.println("You killed the oldest result.");
             }
 
-            sout("Baby one more time? (type 'exit' to quit)");
+            System.out.print("Wanna see results greater than a specific value? Enter number or 'No' ");
+            if (sc.hasNextDouble()) {
+                double n = sc.nextDouble();
+                System.out.println("Results greater than " + n + ": " + cal.getGreater(n));
+            } else {
+                sc.next();
+            }
+
+            System.out.print("Baby one more time? (type 'exit' to quit): ");
             re = sc.next();
         }
 
         sc.close();
     }
-
-    private void sout(String s) {
-        System.out.println(s);
-    }
-
-
 }
-
-

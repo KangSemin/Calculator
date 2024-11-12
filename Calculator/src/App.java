@@ -20,7 +20,8 @@ public class App {
 
             try {
                 Number result = op.operate(num1, num2);
-                result = (double)result%1 ==0?(int)result:result;
+                System.out.println("Result: " + result);
+                cal.addResults(result);
             } catch (ArithmeticException e) {
                 System.out.println("Error: " + e.getMessage());
             }

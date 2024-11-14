@@ -5,27 +5,14 @@ public class App {
     public void Calculate() {
         Scanner sc = new Scanner(System.in);
         Calculator<Number> cal = new Calculator<>();
-        Parse s2n = new Parse();
+        Parse parse = new Parse();
         String re = "";
 
         while (!re.equalsIgnoreCase("exit")) {
             System.out.print("Input first number: ");
-            Number num1 =s2n.parse(sc.next());
+            Number num1 =parse.parse(sc.next());
 
-            System.out.print("Input operator (+, -, *, /): ");
-            Operation<Number> op = cal.getOperation(OperatorType.getSymbol(sc.next().charAt(0)));
-
-            System.out.print("Input second number: ");
-            Number num2 =s2n.parse(sc.next());
-
-            try {
-                Number result = op.operate(num1, num2);
-                System.out.println("Result: " + result);
-                cal.addResults(result);
-            } catch (ArithmeticException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-
+            Subsequent(num1,cal);
             System.out.print("Wanna see all results? (yes/no): ");
             if (sc.next().equalsIgnoreCase("yes")) {
                 System.out.println("History: " + cal.getResults());
@@ -49,6 +36,38 @@ public class App {
             re = sc.next();
         }
 
+
+
         sc.close();
+    }
+
+    void Subsequent(Number num1 , Calculator<Number> cal)
+    {
+        Scanner sc = new Scanner(System.in);
+        Parse parse = new Parse();
+
+        System.out.print("Input operator (+,-,*,/): ");
+        Operation<Number> op = cal.getOperation(OperatorType.getSymbol(sc.next().charAt(0)));
+
+        System.out.print("Input second number: ");
+        Number num2 =parse.parse(sc.next());
+
+        try {
+            Number result = op.operate(num1, num2);
+            System.out.println("Result: " + result);
+            cal.addResults(result);
+
+            System.out.print("Wanna do subsequent calculate? (yes/no): ");
+            if (sc.next().equalsIgnoreCase("yes")) {
+                Subsequent(result,cal);
+            }
+
+
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
+
     }
 }

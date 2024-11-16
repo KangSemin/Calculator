@@ -17,9 +17,17 @@ public class Parse {
         }
     }
 
-    public Number double2Int(double d)
+    public Number parse(Number d)
     {
-        return d%1==0?Integer.valueOf((int)d):d;
+        try
+        {
+            return ( d.doubleValue()%1==0 ? (Number) d.intValue() : (Number) d.doubleValue()) ;
+        }
+        catch(NumberFormatException e)
+        {
+            throw new NumberFormatException("Please input number!");
+        }
+
     }
 
 }

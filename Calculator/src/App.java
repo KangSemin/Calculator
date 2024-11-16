@@ -36,8 +36,6 @@ public class App {
             re = sc.next();
         }
 
-
-
         sc.close();
     }
 

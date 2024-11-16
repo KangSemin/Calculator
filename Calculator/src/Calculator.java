@@ -7,28 +7,18 @@ public class Calculator<T extends Number> {
     private List<Number> results;
 
 
-
     public Calculator() {
         results = new ArrayList<>();
     }
 
     public  <T extends Number> Operation<T> getOperation(OperatorType op)
     {
-
-        switch (op) {
-            case ADD:
-                return new Addiction<T>();
-            case SUBTRACT:
-                return new Subtraction<T>();
-            case MULTIPLY:
-                return new Multiply<T>();
-            case DIVIDE:
-                return new Devision<T>();
-            default:
-                throw new UnsupportedOperationException("Unsupported operation.");
-        }
-
-
+        return switch (op) {
+            case ADD -> new Addiction<T>();
+            case SUBTRACT -> new Subtraction<T>();
+            case MULTIPLY -> new Multiply<T>();
+            case DIVIDE -> new Devision<T>();
+        };
     }
 
     public void addResults(Number d)

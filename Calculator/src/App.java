@@ -46,7 +46,6 @@ public class App {
 
         System.out.print("Input operator (+,-,*,/): ");
         Operation<Number> op = cal.getOperation(OperatorType.getSymbol(sc.next().charAt(0)));
-
         System.out.print("Input second number: ");
         Number num2 =parse.parse(sc.next());
 

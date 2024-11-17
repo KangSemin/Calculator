@@ -19,6 +19,9 @@ public class Parse {
 
     public Number parse(Number d)
     {
+
+        d=Math.round(d.doubleValue()*100000.0)/100000.0;
+
         try
         {
             return ( d.doubleValue()%1==0 ? (Number) d.intValue() : (Number) d.doubleValue()) ;

@@ -4,13 +4,16 @@ import java.util.stream.Collectors;
 
 public class Calculator<T extends Number> {
 
+
+
+
     private List<Number> results;
-
-
     public Calculator() {
         results = new ArrayList<>();
     }
 
+
+    //operation 받아오는 메서드 추가 (OperatorType(열거형)) return operation
     public  <T extends Number> Operation<T> getOperation(OperatorType op)
     {
         return switch (op) {

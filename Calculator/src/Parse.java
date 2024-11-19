@@ -20,7 +20,7 @@ public class Parse {
     public Number parse(Number d)
     {
 
-        d=Math.round(d.doubleValue()*100000.0)/100000.0;
+        d=Math.round(d.doubleValue()*1000000.0)/1000000.0;
 
         try
         {
